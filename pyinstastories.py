@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import argparse
 import codecs
 import datetime
@@ -132,10 +133,11 @@ def login(username="", password=""):
 def check_directories(user_to_check):
 	global download_dest
 	try:
-		if not os.path.isdir(download_dest + "/stories/{}/".format(user_to_check)):
-			os.makedirs(download_dest + "/stories/{}/".format(user_to_check))
+		os.makedirs(download_dest + "/stories/{}/".format(user_to_check))
+	except FileExistsError:
 		return True
 	except Exception as e:
+		print("Unexpected error:", sys.exc_info()[0])
 		print(str(e))
 		return False
 
